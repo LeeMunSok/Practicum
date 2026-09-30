@@ -2,6 +2,7 @@ import UIKit
 
 final class MovieQuizViewController: UIViewController {
     // MARK: - Lifecycle
+
     struct QuizQuestion {
         let image: String
         let text: String
@@ -20,11 +21,7 @@ final class MovieQuizViewController: UIViewController {
         let text: String
         let buttonText: String
     }
-    struct ViewModel {
-        let image: UIImage
-        let question: String
-        let questionNumber: String
-    }
+    
     
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var textLabel: UILabel!
@@ -41,11 +38,10 @@ final class MovieQuizViewController: UIViewController {
         let currentQuestion = questions[currentQuestionIndex]
         let answer = false
         showAnswerResult(isCorrect: answer == currentQuestion.correctAnswer)
+        
+        
+        
     }
-    private var currentQuestionIndex = 0 //счетчик номера вопроса
-    
-    private var correctAnswers = 0 // счетчик правильных ответов
-    
     private let questions: [QuizQuestion] = [
         QuizQuestion(image: "The Godfather",
                      text: "Рейтинг этого фильма больше чем 6?",
@@ -78,46 +74,51 @@ final class MovieQuizViewController: UIViewController {
                      text: "Рейтинг этого фильма больше чем 6?",
                      correctAnswer: false)
     ]
+    private var currentQuestionIndex = 0
     
+    private var correctAnswers = 0
+    
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let firstQuestion = questions[currentQuestionIndex]
+            let viewModel = convert(model: firstQuestion)
+            show(quiz: viewModel)
     }
+    
+    
     private func showAnswerResult(isCorrect: Bool) {
-        if isCorrect {
+        if isCorrect{
             correctAnswers += 1
-            imageView.layer.masksToBounds = true // даём Х разрешение на рисование рамки
-            imageView.layer.borderWidth = 1 // толщина рамки
-            imageView.layer.borderColor = UIColor.green.cgColor // делаем рамку зеленой
-            imageView.layer.cornerRadius = 6 // радиус скругления углов рамки
-        } else {
-            imageView.layer.masksToBounds = true // даём разрешение на рисование рамки
-            imageView.layer.borderWidth = 1 // толщина рамки
-            imageView.layer.borderColor = UIColor.red.cgColor // делаем рамку красной
-            imageView.layer.cornerRadius = 6 // радиус скругления углов рамки
         }
-        // запускаем задачу через 1 секунду c помощью диспетчера задач
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            // код, который мы хотим вызвать через 1 секунду
+        imageView.layer.masksToBounds = true
+            imageView.layer.borderWidth = 8
+            imageView.layer.borderColor = isCorrect ? UIColor.green.cgColor : UIColor.red.cgColor
+            imageView.layer.cornerRadius = 20
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
+      
             self.showNextQuestionOrResults()
+           
         }
     }
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         
-        let questionStep = QuizStepViewModel( // 1
-            image: UIImage(named: model.image) ?? UIImage(), // 2
-            question: model.text, // 3
-            questionNumber: "\(currentQuestionIndex + 1)/\(questions.count)") // 4
+        let questionStep = QuizStepViewModel(
+            image: UIImage(named: model.image) ?? UIImage(),
+            question: model.text,
+            questionNumber: "\(currentQuestionIndex + 1)/\(questions.count)")
         return questionStep
     }
     private func showNextQuestionOrResults() {
         if currentQuestionIndex == questions.count - 1 {
-            let text = "Ваш результат: \(correctAnswers)/(questions.count)" // 1
-            let viewModel = QuizResultsViewModel( // 2
+            let text = "Ваш результат: \(correctAnswers)/\(questions.count)"
+            let viewModel = QuizResultsViewModel(
                 title: "Этот раунд окончен!",
                 text: text,
                 buttonText: "Сыграть ещё раз")
-            show(quiz: viewModel) // 3
+            show(quiz: viewModel)
         } else {
             currentQuestionIndex += 1
             let nextQuestion = questions[currentQuestionIndex]
@@ -135,6 +136,8 @@ final class MovieQuizViewController: UIViewController {
         imageView.image = step.image
         textLabel.text = step.question
         counterLabel.text = step.questionNumber
+        imageView.layer.borderColor = UIColor.clear.cgColor
+            imageView.layer.borderWidth = 0
     }
     private func show(quiz result: QuizResultsViewModel) {
         let alert = UIAlertController(
@@ -154,9 +157,9 @@ final class MovieQuizViewController: UIViewController {
         alert.addAction(action)
         
         self.present(alert, animated: true, completion: nil)
-    } 
-}
+    }
     
+}
 
     
 
