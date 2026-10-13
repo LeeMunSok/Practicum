@@ -44,15 +44,14 @@ class QuestionFactory: QuestionFactoryProtocol {
                      text: "Рейтинг этого фильма больше чем 6?",
                      correctAnswer: false)
     ]
-    
     func requestNextQuestion() {
-        
-        guard let index = (0..<questions.count).randomElement() else {
-            delegate?.didReceiveNextQuestion(question: nil)
-            return
-        }
-        let question = questions[safe: index]
-            delegate?.didReceiveNextQuestion(question: question)
+    guard let index = (0..<questions.count).randomElement() else {
+        delegate?.didReceiveNextQuestion(question: nil)
+        return
     }
+
+    let question = questions[safe: index]
+    delegate?.didReceiveNextQuestion(question: question)
+}
    
 }
