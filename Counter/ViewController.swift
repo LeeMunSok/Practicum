@@ -6,16 +6,22 @@
 //
 
 import UIKit
+
 var number = 0
+
 class ViewController: UIViewController {
+    
     @IBOutlet weak var counterTitle: UILabel!
     
     @IBOutlet weak var counterButton: UIButton!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        number = UserDefaults.standard.integer(forKey: "counterValue")
         counterTitle.text = "Значение счётчика: \(number)"
-        // Do any additional setup after loading the view.
+        
+      
     }
 
     @IBAction func increaseNumber(_ sender: Any) {
@@ -23,7 +29,10 @@ class ViewController: UIViewController {
         newNumber += 1
         number = newNumber
         counterTitle.text = "Значение счётчика: \(number)"
+        UserDefaults.standard.set(number, forKey: "counterValue")
     }
+   
     
 }
+// Пример сохранения значения счетчика
 
