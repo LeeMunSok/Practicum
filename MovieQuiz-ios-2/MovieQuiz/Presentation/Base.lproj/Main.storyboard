@@ -45,7 +45,7 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KsS-LE-qnV" userLabel="Preview Image">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KsS-LE-qnV" userLabel="Preview Image">
                                         <rect key="frame" x="0.0" y="43.666666666666629" width="291.33333333333331" height="437"/>
                                         <color key="backgroundColor" name="YP White (iOS)"/>
                                         <constraints>
