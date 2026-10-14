@@ -84,7 +84,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             let text = """
 Ваш результат: \(correctAnswers)/\(questionsAmount)
 Количество сыграных квизов: \(statisticService.gamesCount)
-Рекорд: \(bestGame.correct) / \(questionsAmount) ((\(formatedData))
+Рекорд: \(bestGame.correct) / \(questionsAmount) (\(formatedData))
 Средняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%
 """
             let viewModel = QuizResultsViewModel(
