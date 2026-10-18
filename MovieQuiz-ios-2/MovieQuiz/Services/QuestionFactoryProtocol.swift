@@ -1,12 +1,5 @@
-//
-//  QuestionFactoryProtocol.swift
-//  MovieQuiz
-//
-//  Created by Виталий  on 07.10.2026.
-//
-
-import UIKit
+import Foundation
 protocol QuestionFactoryProtocol {
     func requestNextQuestion()
-    
+    func loadData()
 }
