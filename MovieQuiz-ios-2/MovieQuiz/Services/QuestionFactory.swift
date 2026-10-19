@@ -1,8 +1,7 @@
 import UIKit
 
-class QuestionFactory: QuestionFactoryProtocol {
+final class QuestionFactory: QuestionFactoryProtocol {
     private let moviesLoader: MoviesLoading
-    //weak var delegate: QuestionFactoryDelegate?
     
     
     private var movies: [MostPopularMovie] = []
@@ -21,9 +20,11 @@ class QuestionFactory: QuestionFactoryProtocol {
                 guard let self = self else { return }
                 switch result {
                 case .success(let mostPopularMovies):
+                    print("✅ ДАННЫЕ ПРИШЛИ! Фильмов: \(mostPopularMovies.items.count)")
                     self.movies = mostPopularMovies.items
                     self.delegate?.didLoadDataFromServer()
                 case .failure(let error):
+                    print("❌ ОШИБКА ЗАГРУЗКИ: \(error)")
                     self.delegate?.didFailToLoadData(with: error)
                 }
             }
