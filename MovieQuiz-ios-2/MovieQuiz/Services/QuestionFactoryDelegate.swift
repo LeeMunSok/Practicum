@@ -1,11 +1,6 @@
-//
-//  QuestionFactoryDelegate.swift
-//  MovieQuiz
-//
-//  Created by Виталий  on 10.10.2026.
-//
-
-import UIKit
+import Foundation
 protocol QuestionFactoryDelegate: AnyObject {
-    func didReceiveNextQuestion(question: QuizQuestion?)    
+    func didReceiveNextQuestion(question: QuizQuestion?)
+    func didLoadDataFromServer()
+    func didFailToLoadData(with error: Error)
 }
